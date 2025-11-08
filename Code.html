@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Machine Learning & Artificial Intelligence Notes</title>
+  <style>
+    :root{
+      --bg:#050b1b; --card:#0d1221; --muted:#a1acc7; --accent:#00bcd4; --accent2:#7c3aed;
+      --text:#eaf2ff; --radius:14px;
+      font-family:'Poppins', sans-serif;
+    }
+    body{margin:0;background:radial-gradient(circle at top left,#0a152a 0%,#050b1b 100%);color:var(--text);padding:20px;display:flex;justify-content:center;}
+    .container{max-width:1100px;width:100%;}
+    header{text-align:center;margin-bottom:30px;animation:fadeInDown 1s ease-in-out;}
+    header h1{font-size:2.5rem;color:var(--accent);margin-bottom:10px;}
+    header p{color:var(--muted);font-size:1.1rem;}
+
+    .nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:20px;}
+    .nav button{background:linear-gradient(90deg,var(--accent),var(--accent2));border:none;padding:10px 20px;border-radius:var(--radius);cursor:pointer;color:white;font-weight:600;transition:0.3s;}
+    .nav button:hover{transform:scale(1.05);}
+
+    .card{background:rgba(255,255,255,0.05);border-radius:var(--radius);padding:20px;margin-bottom:20px;box-shadow:0 0 15px rgba(0,0,0,0.3);animation:fadeIn 0.7s ease;}
+    .card h2{color:var(--accent);margin-top:0;}
+
+    ul,ol{margin-left:20px;}
+    code,pre{background:rgba(0,0,0,0.3);padding:10px;border-radius:10px;display:block;overflow-x:auto;color:#00ffcc;}
+
+    .topic{margin-bottom:20px;}
+    .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;}
+    .chip{background:linear-gradient(90deg,rgba(0,188,212,0.2),rgba(124,58,237,0.2));border:1px solid var(--accent);color:var(--accent);padding:6px 10px;border-radius:20px;font-size:13px;}
+
+    footer{text-align:center;color:var(--muted);margin-top:40px;font-size:0.9rem;}
+
+    @keyframes fadeInDown{0%{opacity:0;transform:translateY(-20px);}100%{opacity:1;transform:translateY(0);}}
+    @keyframes fadeIn{0%{opacity:0;}100%{opacity:1;}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📘 Machine Learning & AI Notes</h1>
+      <p>A complete and visually enhanced study guide with key concepts, algorithms, and practical code snippets.</p>
+    </header>
+
+    <div class="nav">
+      <button onclick="scrollToSection('intro')">Introduction</button>
+      <button onclick="scrollToSection('supervised')">Supervised Learning</button>
+      <button onclick="scrollToSection('unsupervised')">Unsupervised Learning</button>
+      <button onclick="scrollToSection('deep')">Deep Learning</button>
+      <button onclick="scrollToSection('metrics')">Metrics</button>
+      <button onclick="scrollToSection('dl')">Deployment</button>
+      <button onclick="scrollToSection('code')">Code</button>
+      <button onclick="scrollToSection('resources')">Resources</button>
+    </div>
+
+    <section id="intro" class="card">
+      <h2>1. Introduction to Machine Learning</h2>
+      <p>Machine Learning (ML) is a subset of Artificial Intelligence that allows systems to automatically learn and improve from experience without being explicitly programmed.</p>
+      <h3>🧠 Workflow:</h3>
+      <ol>
+        <li>Problem Definition</li>
+        <li>Data Collection & Preprocessing</li>
+        <li>Feature Engineering</li>
+        <li>Model Training & Validation</li>
+        <li>Hyperparameter Tuning</li>
+        <li>Deployment & Monitoring</li>
+      </ol>
+    </section>
+
+    <section id="supervised" class="card">
+      <h2>2. Supervised Learning</h2>
+      <p>Supervised learning uses labeled datasets to train algorithms that classify data or predict outcomes accurately.</p>
+      <div class="chips">
+        <div class="chip">Linear Regression</div>
+        <div class="chip">Decision Trees</div>
+        <div class="chip">Random Forest</div>
+        <div class="chip">SVM</div>
+        <div class="chip">K-Nearest Neighbors</div>
+      </div>
+      <div class="topic">
+        <h3>📈 Linear Regression</h3>
+        <p>Models the relationship between a dependent variable and one or more independent variables using a linear function.</p>
+        <code>y = m*x + b</code>
+      </div>
+      <div class="topic">
+        <h3>🌲 Decision Trees</h3>
+        <p>A non-parametric model that splits data into branches to form a tree structure for prediction.</p>
+      </div>
+    </section>
+
+    <section id="unsupervised" class="card">
+      <h2>3. Unsupervised Learning</h2>
+      <p>Unsupervised learning deals with unlabeled data to find hidden patterns or intrinsic structures.</p>
+      <div class="chips">
+        <div class="chip">K-Means Clustering</div>
+        <div class="chip">Hierarchical Clustering</div>
+        <div class="chip">PCA</div>
+        <div class="chip">t-SNE</div>
+      </div>
+      <p>Common use cases: customer segmentation, anomaly detection, dimensionality reduction.</p>
+    </section>
+
+    <section id="deep" class="card">
+      <h2>4. Deep Learning</h2>
+      <p>Deep Learning is a subset of ML that uses neural networks with multiple layers to model complex relationships.</p>
+      <ul>
+        <li><strong>CNNs</strong> — used for image recognition.</li>
+        <li><strong>RNNs / LSTMs</strong> — used for sequential data like text or speech.</li>
+        <li><strong>Transformers</strong> — state-of-the-art models for NLP (e.g., GPT, BERT).</li>
+      </ul>
+      <pre><code>import tensorflow as tf
+model = tf.keras.models.Sequential([
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dense(10, activation='softmax')
+])</code></pre>
+    </section>
+
+    <section id="metrics" class="card">
+      <h2>5. Model Evaluation Metrics</h2>
+      <div class="chips">
+        <div class="chip">Accuracy</div>
+        <div class="chip">Precision</div>
+        <div class="chip">Recall</div>
+        <div class="chip">F1-Score</div>
+        <div class="chip">ROC-AUC</div>
+      </div>
+      <p>Each metric gives unique insight into model performance. For imbalanced data, F1-score or AUC is preferred over accuracy.</p>
+    </section>
+
+    <section id="dl" class="card">
+      <h2>6. Deployment and Tools</h2>
+      <ul>
+        <li>Deployment: Flask / FastAPI / Docker</li>
+        <li>Model Tracking: MLflow / DVC</li>
+        <li>Monitoring: EvidentlyAI / Prometheus</li>
+        <li>Version Control: Git & GitHub</li>
+      </ul>
+    </section>
+
+    <section id="code" class="card">
+      <h2>7. Code Snippet: Model Training</h2>
+      <pre><code>from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+model = RandomForestClassifier(n_estimators=100)
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+print(classification_report(y_test, y_pred))</code></pre>
+    </section>
+
+    <section id="resources" class="card">
+      <h2>8. Learning Resources</h2>
+      <ul>
+        <li>📘 <b>Book:</b> Hands-On Machine Learning with Scikit-Learn, Keras & TensorFlow</li>
+        <li>🎓 <b>Course:</b> Andrew Ng — Machine Learning (Coursera)</li>
+        <li>💡 <b>Practice:</b> Kaggle Competitions</li>
+        <li>🧰 <b>Libraries:</b> Pandas, Numpy, Scikit-learn, PyTorch, TensorFlow</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>© 2025 Umer Awan — Interactive ML & AI Notes. Built with 💻 HTML + CSS</p>
+    </footer>
+  </div>
+
+  <script>
+    function scrollToSection(id){
+      document.getElementById(id).scrollIntoView({behavior:'smooth'});
+    }
+  </script>
+</body>
+</html>

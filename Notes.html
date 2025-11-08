@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ML & AI Notes — Quick Reference</title>
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#60a5fa; --accent-2:#7c3aed;
+      --glass: rgba(255,255,255,0.03);
+      --max-w: 1000px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#071025 0%, #0b1220 100%);color:#e6eef8;display:flex;justify-content:center;padding:32px 16px}
+    .wrap{width:100%;max-width:var(--max-w)}
+
+    header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+    .logo{width:56px;height:56px;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:12px;display:grid;place-items:center;font-weight:700;color:white}
+    h1{font-size:20px;margin:0}
+    p.lead{margin:0;color:var(--muted);font-size:13px}
+
+    .controls{display:flex;gap:12px;align-items:center;margin:18px 0}
+    .search{flex:1;display:flex}
+    .search input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:var(--glass);color:inherit}
+    .btn{padding:10px 12px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent-2));border:none;color:white;font-weight:600;cursor:pointer}
+
+    .grid{display:grid;grid-template-columns:320px 1fr;gap:18px}
+    nav.card{background:var(--card);padding:16px;border-radius:12px}
+    nav ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+    nav li{padding:10px;border-radius:8px;cursor:pointer;color:var(--muted)}
+    nav li.active{background:linear-gradient(90deg, rgba(96,165,250,0.08), rgba(124,58,237,0.06));color:var(--accent);font-weight:600}
+
+    main.card{background:var(--card);padding:20px;border-radius:12px;min-height:60vh}
+    .section{margin-bottom:18px}
+    .section h2{margin:0 0 8px 0;font-size:16px}
+    .chips{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:999px;font-size:13px;color:var(--muted)}
+
+    pre{background:rgba(0,0,0,0.25);border-radius:8px;padding:12px;overflow:auto}
+    code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;font-size:13px}
+
+    details{background:rgba(255,255,255,0.02);padding:10px;border-radius:8px}
+    summary{cursor:pointer;font-weight:600}
+
+    footer{color:var(--muted);font-size:13px;margin-top:14px;text-align:center}
+
+    @media (max-width:880px){.grid{grid-template-columns:1fr}.search{order:2}}
+
+    /* Print-friendly */
+    @media print{
+      body{background:white;color:black}
+      .card{background:white}
+      .logo,.controls,nav,footer{display:none}
+      pre{background:#f5f5f5;color:black}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">ML</div>
+      <div>
+        <h1>Machine Learning & AI — Quick Notes</h1>
+        <p class="lead">High-level summary, algorithms, metrics and quick code snippets for interview / review.</p>
+      </div>
+    </header>
+
+    <div class="controls">
+      <div class="search"><input id="q" placeholder="Search notes (e.g., 'gradient', 'precision')" oninput="searchNotes()" /></div>
+      <button class="btn" onclick="window.print()">Print</button>
+    </div>
+
+    <div class="grid">
+      <nav class="card">
+        <ul id="toc">
+          <li data-target="intro" class="active">Intro & Workflow</li>
+          <li data-target="supervised">Supervised Learning</li>
+          <li data-target="unsupervised">Unsupervised Learning</li>
+          <li data-target="nn">Neural Networks & Deep Learning</li>
+          <li data-target="eval">Evaluation Metrics</li>
+          <li data-target="pipelines">Pipelines & Tools</li>
+          <li data-target="snippets">Code Snippets</li>
+          <li data-target="resources">Resources</li>
+        </ul>
+      </nav>
+
+      <main class="card" id="content">
+        <section id="intro" class="section">
+          <h2>1. Intro & Typical Workflow</h2>
+          <p>ML = making predictions from data. Common steps:</p>
+          <ol>
+            <li>Define problem (regression/classification/clustering).</li>
+            <li>Collect & clean data (impute, dedupe, normalize).</li>
+            <li>Feature engineering & selection.</li>
+            <li>Choose model(s), train, validate (cross-validation).</li>
+            <li>Tune hyperparameters, evaluate on hold-out test set.</li>
+            <li>Deploy + monitor (data drift, model degradation).</li>
+          </ol>
+        </section>
+
+        <section id="supervised" class="section">
+          <h2>2. Supervised Learning (Labeled Data)</h2>
+          <div class="chips">
+            <div class="chip">Regression: Linear, Ridge, Lasso</div>
+            <div class="chip">Tree-based: Decision Tree, Random Forest, XGBoost</div>
+            <div class="chip">SVM</div>
+            <div class="chip">k-NN</div>
+          </div>
+          <details>
+            <summary>Linear Regression — quick notes</summary>
+            <p>Model: y = Xβ + ε. Solve with OLS, or with regularization (Ridge = L2, Lasso = L1). Use when relation roughly linear.</p>
+          </details>
+          <details>
+            <summary>Tree-based models — quick notes</summary>
+            <p>Decision trees split on features. Random Forest averages many trees. Gradient boosting (XGBoost, LightGBM) often wins on tabular data.</p>
+          </details>
+        </section>
+
+        <section id="unsupervised" class="section">
+          <h2>3. Unsupervised Learning</h2>
+          <div class="chips">
+            <div class="chip">Clustering: K-means, Agglomerative, DBSCAN</div>
+            <div class="chip">Dimensionality: PCA, t-SNE, UMAP</div>
+            <div class="chip">Anomaly detection</div>
+          </div>
+          <p>Used when labels are not available. Choose method by data shape, scale, and desired output (clusters vs embedding).</p>
+        </section>
+
+        <section id="nn" class="section">
+          <h2>4. Neural Networks & Deep Learning</h2>
+          <p>Basic building blocks: neurons, layers, activation functions (ReLU, Sigmoid, Softmax). Optimization: SGD, Adam. Regularization: dropout, batch-norm.</p>
+          <details>
+            <summary>Common architectures</summary>
+            <ul>
+              <li>Feedforward / MLP — tabular / simple tasks</li>
+              <li>CNN — images, convolutions</li>
+              <li>RNN / LSTM / GRU — sequence data</li>
+              <li>Transformers — language, attention mechanism</li>
+            </ul>
+          </details>
+        </section>
+
+        <section id="eval" class="section">
+          <h2>5. Evaluation Metrics</h2>
+          <div class="chips">
+            <div class="chip">Accuracy</div>
+            <div class="chip">Precision, Recall, F1</div>
+            <div class="chip">ROC-AUC</div>
+            <div class="chip">MSE / RMSE / MAE (regression)</div>
+            <div class="chip">Confusion Matrix</div>
+          </div>
+          <p>Pick metric based on business goal. For imbalanced classes, prefer precision/recall or AUC over accuracy.</p>
+        </section>
+
+        <section id="pipelines" class="section">
+          <h2>6. Pipelines, Tools & Best Practices</h2>
+          <ul>
+            <li>Use pipelines to chain preprocessing + model (sklearn Pipeline).</li>
+            <li>Version data and models (DVC, MLflow).</li>
+            <li>Experiment tracking (Weights & Biases, MLflow).</li>
+            <li>Monitoring: data drift detectors, alerting.</li>
+            <li>Reproducibility: set seeds, pin library versions.</li>
+          </ul>
+        </section>
+
+        <section id="snippets" class="section">
+          <h2>7. Code Snippets (Python)</h2>
+          <p>Train/test split + quick model (sklearn):</p>
+          <pre><code>from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+model.fit(X_train, y_train)
+print(classification_report(y_test, model.predict(X_test)))</code></pre>
+
+          <p>Simple PyTorch training loop (skeleton):</p>
+          <pre><code>import torch
+for epoch in range(epochs):
+    for xb, yb in dataloader:
+        preds = model(xb)
+        loss = loss_fn(preds, yb)
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()</code></pre>
+        </section>
+
+        <section id="resources" class="section">
+          <h2>8. Resources & Next Steps</h2>
+          <ul>
+            <li>Books: "Hands-On Machine Learning with Scikit-Learn, Keras & TensorFlow"; "Pattern Recognition and Machine Learning"</li>
+            <li>Courses: Coursera (Andrew Ng), fast.ai</li>
+            <li>Libraries: scikit-learn, pandas, numpy, PyTorch, TensorFlow, XGBoost</li>
+          </ul>
+        </section>
+
+        <footer>Generated quick notes • Edit or print for study.</footer>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Simple TOC navigation and search
+    const toc = document.getElementById('toc');
+    toc.addEventListener('click', (e)=>{
+      const li = e.target.closest('li'); if(!li) return;
+      document.querySelectorAll('#toc li').forEach(x=>x.classList.remove('active'));
+      li.classList.add('active');
+      const target = document.getElementById(li.dataset.target);
+      if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+
+    function searchNotes(){
+      const q = document.getElementById('q').value.toLowerCase();
+      const sections = document.querySelectorAll('main .section');
+      sections.forEach(s => {
+        const text = s.innerText.toLowerCase();
+        if(!q) s.style.display = '';
+        else s.style.display = text.includes(q) ? '' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
