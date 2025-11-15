@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Started AI &amp; ML — Umer Awan</title>
+  <style>
+    /* --------- Reset & base --------- */
+    :root{
+      --bg1: #0f172a;   /* dark navy */
+      --bg2: #071028;
+      --accent: #7c3aed; /* purple */
+      --accent-2: #10b981; /* teal */
+      --glass: rgba(255,255,255,0.06);
+      --card: rgba(255,255,255,0.03);
+      --text: #e6eef8;
+      --muted: #9fb0d3;
+      --radius: 14px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.12), transparent),
+                  radial-gradient(800px 400px at 90% 90%, rgba(16,185,129,0.06), transparent),
+                  linear-gradient(180deg,var(--bg1),var(--bg2));
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:40px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:28px;
+      min-height:100vh;
+    }
+
+    /* --------- Layout --------- */
+    .container{
+      width:100%;
+      max-width:1100px;
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:28px;
+      align-items:start;
+    }
+    @media (max-width:980px){
+      .container{ grid-template-columns: 1fr; padding:20px; }
+    }
+
+    /* --------- Left: Hero / Content --------- */
+    .hero{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:34px;
+      border-radius:var(--radius);
+      box-shadow: 0 6px 30px rgba(2,6,23,0.7);
+      border: 1px solid rgba(255,255,255,0.03);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .badge{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:white;
+      font-weight:600;
+      font-size:13px;
+      letter-spacing:0.3px;
+      box-shadow: 0 6px 22px rgba(124,58,237,0.14);
+    }
+
+    h1{
+      margin:18px 0 6px 0;
+      font-size:34px;
+      line-height:1.02;
+      letter-spacing:-0.4px;
+      color:var(--text);
+    }
+    p.lead{
+      margin:0 0 16px 0;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    .kicker{
+      margin-top:18px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .pill{
+      background:var(--card);
+      padding:8px 12px;
+      border-radius:10px;
+      color:var(--muted);
+      font-size:13px;
+      border:1px solid rgba(255,255,255,0.02);
+    }
+
+    /* progress */
+    .progress-wrap{ margin-top:20px }
+    .progress-title{ display:flex; justify-content:space-between; gap:12px; margin-bottom:8px; color:var(--muted); font-size:13px; }
+    .progress{
+      background:rgba(255,255,255,0.03);
+      border-radius:999px;
+      height:14px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,0.02);
+    }
+    .progress > i{
+      display:block;
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      border-radius:999px;
+      transition: width 1.2s cubic-bezier(.2,.9,.2,1);
+      box-shadow: 0 6px 20px rgba(16,185,129,0.12);
+    }
+
+    /* timeline */
+    .timeline{
+      margin-top:22px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .tick{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .dot{
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      background:linear-gradient(180deg,var(--accent),var(--accent-2));
+      box-shadow:0 6px 18px rgba(124,58,237,0.12);
+      margin-top:6px;
+      flex-shrink:0;
+    }
+    .tick .meta{ color:var(--muted); font-size:13px; }
+    .tick h4{ margin:0; font-size:15px; }
+
+    /* CTA */
+    .cta{
+      margin-top:22px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      padding:12px 16px;
+      border-radius:12px;
+      font-weight:600;
+      border:0;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+    }
+    .btn.primary{
+      background:linear-gradient(90deg,var(--accent),#6d28d9);
+      color:white;
+      box-shadow:0 10px 30px rgba(124,58,237,0.12);
+    }
+    .btn.ghost{
+      background:transparent;
+      color:var(--text);
+      border:1px solid rgba(255,255,255,0.04);
+    }
+
+    /* --------- Right: Card / Stats --------- */
+    .card{
+      padding:22px;
+      border-radius:var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+      position:sticky;
+      top:40px;
+    }
+    .card h3{ margin:0 0 10px 0; font-size:18px; }
+    .card p{ color:var(--muted); margin:0 0 14px 0; font-size:13px; }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+    }
+    .stat {
+      background:var(--glass);
+      padding:12px;
+      border-radius:10px;
+      text-align:center;
+      border:1px solid rgba(255,255,255,0.02);
+    }
+    .stat strong{ display:block; font-size:18px; margin-bottom:6px; }
+    .resources{ margin-top:12px; display:flex; flex-direction:column; gap:8px; }
+    .res{ font-size:13px; color:var(--muted); padding:10px; border-radius:8px; background: rgba(255,255,255,0.01); border:1px dashed rgba(255,255,255,0.02); }
+
+    /* subtle moving stars background */
+    .stars{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      opacity:0.14;
+      background-image:
+        radial-gradient(#ffffff 0.8px, transparent 1px),
+        radial-gradient(#ffffff 0.9px, transparent 1px),
+        radial-gradient(#ffffff 0.6px, transparent 1px);
+      background-size: 250px 250px, 420px 420px, 120px 120px;
+      background-position: 10% 20%, 70% 80%, 30% 40%;
+      transform: translateZ(0);
+      animation: drift 30s linear infinite;
+      mix-blend-mode:screen;
+    }
+    @keyframes drift{
+      from{ transform: translate(0,0) }
+      to{ transform: translate(-60px,40px) }
+    }
+
+    /* tiny flourish */
+    .logo{
+      display:inline-grid;
+      place-items:center;
+      width:46px;height:46px;border-radius:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    footer{
+      margin-top:22px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* small responsiveness for right column sticky elimination */
+    @media (max-width:980px){
+      .card{ position:relative; top:auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <section class="hero">
+      <div class="stars" aria-hidden="true"></div>
+
+      <div style="display:flex;align-items:center;gap:12px;justify-content:space-between">
+        <div>
+          <span class="badge">New Skill — AI &amp; ML</span>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <div class="logo" aria-hidden="true">
+            <!-- simple circuit/brain icon -->
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 12a5 5 0 1 0 10 0 5 5 0 0 0-10 0Z" stroke="url(#g)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#7c3aed"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <h1>I've started learning <span style="background:linear-gradient(90deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; color:transparent">AI &amp; Machine Learning</span></h1>
+      <p class="lead">Hello — I'm <strong>Umer Awan</strong>. I just began my AI & ML journey: studying fundamentals, building small projects, and leveling up my data & model skills.</p>
+
+      <div class="kicker">
+        <div class="pill">📚 Courses: Intro ML, Python, NumPy</div>
+        <div class="pill">🧪 Tools: Python · Jupyter · pandas</div>
+        <div class="pill">🚀 Goal: Build ML projects & deploy models</div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-title">
+          <div>Overall progress</div>
+          <div><strong id="percent">12%</strong></div>
+        </div>
+        <div class="progress" aria-hidden="true">
+          <i id="bar"></i>
+        </div>
+      </div>
+
+      <div class="timeline" aria-label="learning timeline">
+        <div class="tick">
+          <div class="dot" aria-hidden="true"></div>
+          <div>
+            <h4>Week 1 — Getting started with Python & math</h4>
+            <div class="meta">Basics of Python, linear algebra recap, setup Jupyter environment</div>
+          </div>
+        </div>
+
+        <div class="tick">
+          <div class="dot" aria-hidden="true"></div>
+          <div>
+            <h4>Week 3 — First ML models</h4>
+            <div class="meta">Learned supervised learning: linear regression & classifiers</div>
+          </div>
+        </div>
+
+        <div class="tick">
+          <div class="dot" aria-hidden="true"></div>
+          <div>
+            <h4>Coming up — Projects & deployment</h4>
+            <div class="meta">Build a small prediction project and host it</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta">
+        <button class="btn primary" id="learnBtn">Share my progress</button>
+        <button class="btn ghost" id="resourcesBtn">Resources</button>
+      </div>
+
+      <footer>Tip: Keep a small project diary — commit little wins every day.</footer>
+    </section>
+
+    <aside class="card" aria-labelledby="statusTitle">
+      <h3 id="statusTitle">Current status</h3>
+      <p>You're off to a great start. Below are quick stats you can update as you progress.</p>
+
+      <div class="stats" role="list">
+        <div class="stat" role="listitem">
+          <strong id="hours">16</strong>
+          Hours studied
+        </div>
+        <div class="stat" role="listitem">
+          <strong id="projects">0</strong>
+          Small projects
+        </div>
+        <div class="stat" role="listitem">
+          <strong id="courses">2</strong>
+          Courses enrolled
+        </div>
+        <div class="stat" role="listitem">
+          <strong id="badges">1</strong>
+          Certificates
+        </div>
+      </div>
+
+      <div class="resources" aria-hidden="false">
+        <div class="res">🧭 Quick resources: "Python for Data Science", "Intro to ML" lectures.</div>
+        <div class="res">📦 Tools to try: scikit-learn, pandas, matplotlib, seaborn.</div>
+        <div class="res">💡 Project ideas: House-price predictor, Image classifier, Sentiment analysis.</div>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    // Small interactive touches: animate progress and update stats
+    (function(){
+      const bar = document.getElementById('bar');
+      const percentText = document.getElementById('percent');
+      // Set initial percent (you can change this number)
+      const percent = 12;
+      // animate width after small delay
+      requestAnimationFrame(() => {
+        setTimeout(()=> {
+          bar.style.width = percent + "%";
+          percentText.textContent = percent + "%";
+        }, 120);
+      });
+
+      // share progress button (copies a small text to clipboard)
+      document.getElementById('learnBtn').addEventListener('click', () => {
+        const txt = `I've started learning AI & ML! Currently ${percent}% done with basics. — Umer Awan`;
+        navigator.clipboard?.writeText(txt).then(()=>{
+          alert('Progress copied to clipboard — share it anywhere!');
+        }, ()=> {
+          alert('Cannot copy automatically. Here it is:\\n' + txt);
+        });
+      });
+
+      // resources quick action toggles hours & projects to simulate progress
+      document.getElementById('resourcesBtn').addEventListener('click', () => {
+        const hours = document.getElementById('hours');
+        const projects = document.getElementById('projects');
+        hours.textContent = +hours.textContent + 4;
+        projects.textContent = +projects.textContent + 1;
+      });
+    })();
+  </script>
+</body>
+</html>
