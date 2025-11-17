@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NumPy Cheatsheet — Beginner</title>
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent:#7dd3fc;
+      --glass: rgba(255,255,255,0.03);
+      --code-bg:#071021;
+      --radius:14px;
+      --maxw:980px;
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#071226 0%, #041021 100%);
+      color:#e6eef8;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:40px 20px;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:var(--maxw);
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      margin-bottom:18px;
+    }
+    .logo{
+      width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#60a5fa);display:grid;place-items:center;font-weight:700;color:#04263a;font-size:20px;box-shadow:0 8px 30px rgba(3,6,23,0.6);
+    }
+    h1{margin:0;font-size:20px}
+    p.lead{margin:0;color:var(--muted);font-size:13px}
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+      border:1px solid rgba(255,255,255,0.04);
+    }
+
+    .grid{display:grid;grid-template-columns: 1fr 340px;gap:18px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+
+    main{padding:6px}
+    .section{margin-bottom:14px}
+    .section h2{margin:0 0 8px 0;font-size:15px}
+    .section ul{margin:0 0 6px 18px;color:var(--muted);font-size:13px}
+
+    pre.code{
+      background:var(--code-bg);
+      padding:12px;border-radius:10px;overflow:auto;margin:8px 0;font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;font-size:13px;color:#dbeafe;line-height:1.45;border:1px solid rgba(255,255,255,0.03)
+    }
+
+    aside{
+      padding:10px 12px;background:linear-gradient(180deg,#051023, #041022);border-radius:12px;border:1px solid rgba(255,255,255,0.03);
+    }
+    .meta{font-size:13px;color:var(--muted);margin-bottom:10px}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;background:var(--glass);border-radius:10px;border:1px solid rgba(255,255,255,0.04);cursor:pointer;font-size:13px;color:var(--accent)}
+
+    footer{margin-top:12px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* small utilities */
+    .kbd{background:#021022;padding:2px 8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace}
+    .muted{color:var(--muted);font-size:13px}
+
+    /* print tweak */
+    @media print{body{background:white;color:black} .card{box-shadow:none;border:none}}
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">NP</div>
+      <div>
+        <h1>NumPy Cheatsheet — Beginner</h1>
+        <p class="lead">Compact reference: arrays, creation, math, stats, indexing, random, and matrix ops.</p>
+      </div>
+    </header>
+
+    <div class="card grid">
+      <main>
+        <section class="section">
+          <h2>1. Import</h2>
+          <pre class="code"><code>import numpy as np</code></pre>
+        </section>
+
+        <section class="section">
+          <h2>2. Creating arrays</h2>
+          <ul>
+            <li><strong>np.array()</strong> — create array from list: <span class="muted">np.array([1,2,3])</span></li>
+            <li><strong>np.zeros(shape)</strong> — zeros: <span class="muted">np.zeros((3,3))</span></li>
+            <li><strong>np.ones(shape)</strong> — ones: <span class="muted">np.ones((2,4))</span></li>
+            <li><strong>np.full(shape, value)</strong> — fill: <span class="muted">np.full((2,3), 5)</span></li>
+            <li><strong>np.arange(start, stop, step)</strong> — range: <span class="muted">np.arange(0,10,2)</span></li>
+            <li><strong>np.linspace(start, stop, num)</strong> — evenly spaced: <span class="muted">np.linspace(0,1,5)</span></li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2>3. Array info & shape</h2>
+          <ul>
+            <li><code>arr.shape</code> — shape tuple</li>
+            <li><code>arr.ndim</code> — number of dimensions</li>
+            <li><code>arr.size</code> — total elements</li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2>4. Reshaping</h2>
+          <pre class="code"><code>a = np.arange(6)
+b = a.reshape(2,3)
+flat = a.flatten()</code></pre>
+        </section>
+
+        <section class="section">
+          <h2>5. Math & Statistics</h2>
+          <ul>
+            <li><code>np.add, np.subtract, np.multiply, np.divide</code> — elementwise ops</li>
+            <li><code>np.power(a,2), np.sqrt(a)</code></li>
+            <li><code>np.mean(a), np.median(a), np.sum(a), np.min(a), np.max(a), np.std(a)</code></li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2>6. Indexing & slicing</h2>
+          <pre class="code"><code># 1D
+x = a[0]
+y = a[-1]
+slice = a[1:4]
+
+# 2D
+val = b[0,1]
+col = b[:,0]
+row = b[1,:]</code></pre>
+        </section>
+
+        <section class="section">
+          <h2>7. Random</h2>
+          <ul>
+            <li><code>np.random.randint(low,high,size)</code> — ints</li>
+            <li><code>np.random.randn(rows,cols)</code> — normal samples</li>
+            <li><code>np.random.random(shape)</code> — floats in [0,1)</li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2>8. Matrix ops</h2>
+          <ul>
+            <li><code>np.dot(a,b)</code> or <code>a @ b</code></li>
+            <li><code>a.T</code> — transpose</li>
+            <li><code>np.linalg.inv(mat)</code> — inverse</li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2>9. Example</h2>
+          <pre class="code"><code>import numpy as np
+
+# create
+A = np.arange(6).reshape(2,3)
+B = np.ones((2,3))
+
+# math & stats
+C = A + B
+mean_all = np.mean(C)
+
+print(A)
+print(C)
+print("mean:", mean_all)</code></pre>
+        </section>
+
+        <footer>Created for Umer — quick NumPy reference for beginners.</footer>
+      </main>
+
+      <aside>
+        <div class="meta">Quick actions</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <button class="btn" id="copyHtml">Copy HTML</button>
+          <button class="btn" id="printBtn">Print / Save PDF</button>
+          <div class="meta">Tips</div>
+          <div class="muted">• Prefer vectorized ops over Python loops for speed.<br>• Check shapes: <span class="kbd">a.shape</span> before matrix ops.<br>• Use <span class="kbd">np.save</span> / <span class="kbd">np.load</span> to persist arrays.</div>
+        </div>
+      </aside>
+    </div>
+
+  </div>
+
+  <script>
+    document.getElementById('copyHtml').addEventListener('click', async () => {
+      const html = document.documentElement.outerHTML;
+      try {
+        await navigator.clipboard.writeText(html);
+        alert('HTML copied to clipboard ✔');
+      } catch (e) {
+        alert('Copy failed — your browser may block clipboard.');
+      }
+    });
+    document.getElementById('printBtn').addEventListener('click', () => window.print());
+  </script>
+</body>
+</html>
