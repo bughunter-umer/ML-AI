@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NumPy Cheat Sheet — Umer Awan</title>
+  <style>
+    :root{--bg:#0f172a;--card:#0b1220;--accent:#06b6d4;--muted:#94a3b8;--glass:rgba(255,255,255,0.03)}
+    *{box-sizing:border-box}
+    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial; margin:0;background:linear-gradient(180deg,var(--bg),#020617);color:#e6eef6}
+    .container{max-width:980px;margin:40px auto;padding:28px}
+    header{display:flex;gap:20px;align-items:center}
+    .logo{width:84px;height:84px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#021124}
+    h1{margin:0;font-size:28px}
+    p.lead{margin:6px 0 18px;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 20px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
+    pre{background:var(--glass);padding:12px;border-radius:8px;overflow:auto;color:#e6eef6;font-size:13px}
+    code{font-family:SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:13px}
+    .full{grid-column:span 2}
+    footer{margin-top:18px;color:var(--muted);font-size:13px}
+    .hero-img{width:100%;border-radius:8px;margin-bottom:12px}
+    @media(max-width:820px){.grid{grid-template-columns:1fr}.full{grid-column:span 1}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">np</div>
+      <div>
+        <h1>NumPy Cheat Sheet</h1>
+        <p class="lead">Short, practical reference for array creation, linear algebra, randoms, statistics, reshaping and indexing — ready for ML practice.</p>
+      </div>
+    </header>
+
+    <!-- Optional hero image: place the generated PNG named "numpy_cheatsheet.png" in same folder to show here -->
+    <img class="hero-img" src="numpy_cheatsheet.png" alt="NumPy Cheat Sheet Image (place numpy_cheatsheet.png here)">
+
+    <div class="grid">
+      <div class="card">
+        <h3>Array creation</h3>
+        <pre><code>np.array([1,2,3])        # from list
+np.zeros((2,3))          # zeros
+np.ones((2,3))           # ones
+np.arange(0,10,2)        # like range
+np.linspace(0,1,5)       # n points evenly spaced</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Random numbers</h3>
+        <pre><code>np.random.rand(2,3)      # uniform [0,1)
+np.random.randn(3)       # normal (0,1)
+np.random.randint(1,10,(2,2))  # ints [1,10)</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Linear algebra</h3>
+        <pre><code>np.dot(a,b)             # dot product
+np.matmul(A,B)           # matrix multiply (use @ too)
+np.linalg.inv(A)         # inverse (square only)
+np.linalg.pinv(A)        # pseudo-inverse
+A.T or np.transpose(A)   # transpose</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Statistics</h3>
+        <pre><code>np.mean(x)              # average
+np.std(x)               # standard deviation
+np.var(x)               # variance
+np.min(x), np.max(x)    # min & max</code></pre>
+      </div>
+
+      <div class="card full">
+        <h3>Reshaping & dimension helpers</h3>
+        <pre><code>a.reshape(2,3)         # change shape
+a.flatten()              # 1D copy
+np.expand_dims(a,0)      # add new axis (batch)
+a.squeeze()              # remove size-1 axes</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Indexing & slicing</h3>
+        <pre><code>a[1:4]                 # slice
+a[::2]                  # every 2nd
+a[a>3]                  # boolean indexing
+np.where(a&gt;25)       # indices or ternary: np.where(cond, x,y)</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Tips for ML</h3>
+        <pre><code># normalize features
+(x - x.mean(axis=0)) / x.std(axis=0)
+
+# add bias column
+X = np.concatenate([np.ones((n,1)), X], axis=1)
+
+# linear regression closed form
+theta = np.linalg.pinv(X.T @ X) @ X.T @ y</code></pre>
+      </div>
+
+    </div>
+
+    <footer>
+      Created for Umer — feel free to copy, edit, or export. Save the included image as <code>numpy_cheatsheet.png</code> next to this HTML to show the visual cheat sheet.
+    </footer>
+  </div>
+</body>
+</html>

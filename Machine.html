@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NumPy Cheat Sheet – Advanced</title>
+<style>
+    :root {
+        --bg: #0d1524;
+        --text: #e8eef5;
+        --card: #152238;
+        --accent: #06b6d4;
+    }
+    body.light {
+        --bg: #f5f7fa;
+        --text: #111;
+        --card: #ffffff;
+        --accent: #0077ff;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        transition: 0.4s;
+        display: flex;
+    }
+
+    /* Sidebar */
+    #sidebar {
+        width: 260px;
+        background: var(--card);
+        height: 100vh;
+        padding: 20px;
+        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+        position: fixed;
+        left: 0;
+        top: 0;
+        overflow-y: auto;
+        transition: 0.4s;
+        animation: slideIn 0.6s ease;
+    }
+
+    @keyframes slideIn {
+        from { transform: translateX(-100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    #sidebar h2 {
+        margin-top: 0;
+        color: var(--accent);
+        font-size: 22px;
+    }
+
+    #sidebar a {
+        display: block;
+        margin: 12px 0;
+        color: var(--text);
+        text-decoration: none;
+        font-size: 16px;
+        transition: 0.2s;
+    }
+
+    #sidebar a:hover {
+        color: var(--accent);
+        transform: translateX(5px);
+    }
+
+    /* Main Content */
+    #content {
+        margin-left: 280px;
+        padding: 30px;
+    }
+
+    h1 {
+        font-size: 36px;
+        margin-bottom: 10px;
+        color: var(--accent);
+    }
+
+    .card {
+        background: var(--card);
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 14px;
+        box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+        transition: 0.3s;
+        animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    pre {
+        background: #0c1a28;
+        color: #b6eaff;
+        padding: 12px;
+        border-radius: 10px;
+        overflow-x: auto;
+        font-size: 14px;
+    }
+
+    /* Search Bar */
+    #searchBox {
+        width: 100%;
+        padding: 12px;
+        margin: 20px 0;
+        border-radius: 10px;
+        border: none;
+        font-size: 16px;
+    }
+
+    /* Theme Toggle */
+    #toggleBtn {
+        position: fixed;
+        right: 30px;
+        top: 30px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        background: var(--accent);
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+    <h2>📘 Navigation</h2>
+    <a href="#arrays">Array Creation</a>
+    <a href="#random">Random Numbers</a>
+    <a href="#linalg">Linear Algebra</a>
+    <a href="#stats">Statistics</a>
+    <a href="#reshape">Reshaping</a>
+    <a href="#indexing">Indexing</a>
+    <a href="#broadcast">Broadcasting</a>
+</div>
+
+<button id="toggleBtn">Toggle Theme</button>
+
+<div id="content">
+    <h1>NumPy Complete Cheat Sheet</h1>
+
+    <input type="text" id="searchBox" placeholder="🔍 Search any NumPy function..." />
+
+    <div class="card" id="arrays">
+        <h2>Array Creation</h2>
+        <pre>
+np.array([1,2,3])
+np.zeros((3,3))
+np.ones((2,4))
+np.arange(0,10,2)
+np.linspace(0,1,5)
+        </pre>
+    </div>
+
+    <div class="card" id="random">
+        <h2>Random Numbers</h2>
+        <pre>
+np.random.rand(2,3)
+np.random.randn(3)
+np.random.randint(1,10,(2,2))
+        </pre>
+    </div>
+
+    <div class="card" id="linalg">
+        <h2>Linear Algebra</h2>
+        <pre>
+np.dot(a, b)
+np.matmul(A, B)
+np.linalg.inv(A)
+np.linalg.pinv(A)
+A.T
+        </pre>
+    </div>
+
+    <div class="card" id="stats">
+        <h2>Statistics</h2>
+        <pre>
+np.mean(x)
+np.std(x)
+np.var(x)
+np.min(x), np.max(x)
+        </pre>
+    </div>
+
+    <div class="card" id="reshape">
+        <h2>Reshaping</h2>
+        <pre>
+a.reshape(2,3)
+a.flatten()
+np.expand_dims(a, 0)
+a.squeeze()
+        </pre>
+    </div>
+
+    <div class="card" id="indexing">
+        <h2>Indexing</h2>
+        <pre>
+a[1:4]
+a[:, 0]
+a[::2]
+a[a > 3]
+np.where(a > 20)
+        </pre>
+    </div>
+
+    <div class="card" id="broadcast">
+        <h2>Broadcasting</h2>
+        <pre>
+# Adds scalar to entire array
+A + 5
+
+# Add vector to each row
+A + np.array([1,2,3])
+        </pre>
+    </div>
+
+</div>
+
+<script>
+// 🔍 Search filter
+const searchBox = document.getElementById("searchBox");
+searchBox.addEventListener("keyup", () => {
+    let filter = searchBox.value.toLowerCase();
+    document.querySelectorAll('.card').forEach(card => {
+        card.style.display = card.innerText.toLowerCase().includes(filter) ? 'block' : 'none';
+    });
+});
+
+// 🌗 Dark/Light theme toggle
+const toggleBtn = document.getElementById("toggleBtn");
+toggleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("light");
+});
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NumPy Cheat Sheet – Advanced</title>
+<style>
+    :root {
+        --bg: #0d1524;
+        --text: #e8eef5;
+        --card: #152238;
+        --accent: #06b6d4;
+    }
+    body.light {
+        --bg: #f5f7fa;
+        --text: #111;
+        --card: #ffffff;
+        --accent: #0077ff;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        transition: 0.4s;
+        display: flex;
+    }
+
+    /* Sidebar */
+    #sidebar {
+        width: 260px;
+        background: var(--card);
+        height: 100vh;
+        padding: 20px;
+        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+        position: fixed;
+        left: 0;
+        top: 0;
+        overflow-y: auto;
+        transition: 0.4s;
+        animation: slideIn 0.6s ease;
+    }
+
+    @keyframes slideIn {
+        from { transform: translateX(-100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    #sidebar h2 {
+        margin-top: 0;
+        color: var(--accent);
+        font-size: 22px;
+    }
+
+    #sidebar a {
+        display: block;
+        margin: 12px 0;
+        color: var(--text);
+        text-decoration: none;
+        font-size: 16px;
+        transition: 0.2s;
+    }
+
+    #sidebar a:hover {
+        color: var(--accent);
+        transform: translateX(5px);
+    }
+
+    /* Main Content */
+    #content {
+        margin-left: 280px;
+        padding: 30px;
+    }
+
+    h1 {
+        font-size: 36px;
+        margin-bottom: 10px;
+        color: var(--accent);
+    }
+
+    .card {
+        background: var(--card);
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 14px;
+        box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+        transition: 0.3s;
+        animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    pre {
+        background: #0c1a28;
+        color: #b6eaff;
+        padding: 12px;
+        border-radius: 10px;
+        overflow-x: auto;
+        font-size: 14px;
+    }
+
+    /* Search Bar */
+    #searchBox {
+        width: 100%;
+        padding: 12px;
+        margin: 20px 0;
+        border-radius: 10px;
+        border: none;
+        font-size: 16px;
+    }
+
+    /* Theme Toggle */
+    #toggleBtn {
+        position: fixed;
+        right: 30px;
+        top: 30px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        background: var(--accent);
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+    <h2>📘 Navigation</h2>
+    <a href="#arrays">Array Creation</a>
+    <a href="#random">Random Numbers</a>
+    <a href="#linalg">Linear Algebra</a>
+    <a href="#stats">Statistics</a>
+    <a href="#reshape">Reshaping</a>
+    <a href="#indexing">Indexing</a>
+    <a href="#broadcast">Broadcasting</a>
+</div>
+
+<button id="toggleBtn">Toggle Theme</button>
+
+<div id="content">
+    <h1>NumPy Complete Cheat Sheet</h1>
+
+    <input type="text" id="searchBox" placeholder="🔍 Search any NumPy function..." />
+
+    <div class="card" id="arrays">
+        <h2>Array Creation</h2>
+        <pre>
+np.array([1,2,3])
+np.zeros((3,3))
+np.ones((2,4))
+np.arange(0,10,2)
+np.linspace(0,1,5)
+        </pre>
+    </div>
+
+    <div class="card" id="random">
+        <h2>Random Numbers</h2>
+        <pre>
+np.random.rand(2,3)
+np.random.randn(3)
+np.random.randint(1,10,(2,2))
+        </pre>
+    </div>
+
+    <div class="card" id="linalg">
+        <h2>Linear Algebra</h2>
+        <pre>
+np.dot(a, b)
+np.matmul(A, B)
+np.linalg.inv(A)
+np.linalg.pinv(A)
+A.T
+        </pre>
+    </div>
+
+    <div class="card" id="stats">
+        <h2>Statistics</h2>
+        <pre>
+np.mean(x)
+np.std(x)
+np.var(x)
+np.min(x), np.max(x)
+        </pre>
+    </div>
+
+    <div class="card" id="reshape">
+        <h2>Reshaping</h2>
+        <pre>
+a.reshape(2,3)
+a.flatten()
+np.expand_dims(a, 0)
+a.squeeze()
+        </pre>
+    </div>
+
+    <div class="card" id="indexing">
+        <h2>Indexing</h2>
+        <pre>
+a[1:4]
+a[:, 0]
+a[::2]
+a[a > 3]
+np.where(a > 20)
+        </pre>
+    </div>
+
+    <div class="card" id="broadcast">
+        <h2>Broadcasting</h2>
+        <pre>
+# Adds scalar to entire array
+A + 5
+
+# Add vector to each row
+A + np.array([1,2,3])
+        </pre>
+    </div>
+
+</div>
+
+<script>
+// 🔍 Search filter
+const searchBox = document.getElementById("searchBox");
+searchBox.addEventListener("keyup", () => {
+    let filter = searchBox.value.toLowerCase();
+    document.querySelectorAll('.card').forEach(card => {
+        card.style.display = card.innerText.toLowerCase().includes(filter) ? 'block' : 'none';
+    });
+});
+
+// 🌗 Dark/Light theme toggle
+const toggleBtn = document.getElementById("toggleBtn");
+toggleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("light");
+});
+</script>
+
+</body>
+</html>

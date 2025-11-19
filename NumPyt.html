@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Advanced NumPy Cheat Sheet — Umer Awan</title>
+  <style>
+    :root{
+      --bg:#0f172a;
+      --card:#0b1220;
+      --accent:#06b6d4;
+      --accent2:#7c3aed;
+      --muted:#94a3b8;
+      --muted2:#cbd5e1;
+      --glass:rgba(255,255,255,0.04);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto; 
+      background:linear-gradient(180deg,var(--bg),#020617);
+      color:#e6eef6;
+      line-height:1.6;
+    }
+    .container{max-width:1200px;margin:40px auto;padding:32px}
+    header{display:flex;gap:20px;align-items:center;margin-bottom:30px}
+    .logo{
+      width:90px;height:90px;border-radius:16px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      display:flex;align-items:center;justify-content:center;
+      font-size:38px;font-weight:700;color:#02121b;
+      box-shadow:0 8px 24px rgba(0,0,0,0.35);
+    }
+    h1{font-size:42px;font-weight:700;margin-bottom:6px}
+    .lead{font-size:18px;color:var(--muted);max-width:800px}
+
+    .section-title{
+      font-size:32px;
+      color:var(--accent);
+      margin:50px 0 20px;
+      border-left:4px solid var(--accent);
+      padding-left:12px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(350px,1fr));
+      gap:24px;
+    }
+
+    .card{
+      background:var(--card);
+      padding:22px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.05);
+      box-shadow:0 10px 28px rgba(0,0,0,0.4);
+      transition:0.2s;
+    }
+    .card:hover{transform:translateY(-4px);border-color:var(--accent)}
+
+    h3{margin-bottom:14px;font-size:22px;color:var(--accent2)}
+    pre{
+      background:var(--glass);
+      padding:14px;border-radius:10px;
+      overflow:auto;font-size:14px;color:var(--muted2);
+    }
+
+    .hero-img{
+      width:100%;border-radius:14px;margin:25px 0;
+      box-shadow:0 12px 34px rgba(0,0,0,0.45);
+    }
+    footer{
+      margin-top:40px;font-size:15px;color:var(--muted);
+      text-align:center;padding:20px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <div class="logo">np</div>
+      <div>
+        <h1>Advanced NumPy Cheat Sheet</h1>
+        <p class="lead">A fully detailed, structured, and visually enhanced reference for learning NumPy fundamentals, advanced array operations, broadcasting rules, linear algebra, random operations, indexing, slicing, reshaping, and ML-specific tricks.</p>
+      </div>
+    </header>
+
+    <img class="hero-img" src="numpy_cheatsheet.png" alt="NumPy Cheat Sheet Image (place numpy_cheatsheet.png here)">
+
+    <!-- ARRAY CREATION -->
+    <h2 class="section-title">1. Array Creation</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Basic</h3>
+        <pre><code>np.array([1,2,3])               # create array
+np.array([[1,2],[3,4]])         # 2D array
+np.asarray(list_obj)            # convert list → ndarray</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Special Arrays</h3>
+        <pre><code>np.zeros((3,3))                 # matrix of 0s
+np.ones((2,4))                  # matrix of 1s
+np.full((2,2), 7)               # matrix filled with 7
+np.eye(4)                       # identity matrix</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Sequences</h3>
+        <pre><code>np.arange(0, 20, 2)             # even sequence
+np.linspace(0, 1, 10)           # 10 evenly spaced points
+np.logspace(1, 3, 5)            # log scale spacing</code></pre>
+      </div>
+    </div>
+
+    <!-- RANDOM -->
+    <h2 class="section-title">2. Random Numbers</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Basic</h3>
+        <pre><code>np.random.rand(3,3)             # uniform dist [0,1)
+np.random.randn(3,3)            # normal dist (0,1)
+np.random.randint(1, 50, (3,3)) # random ints</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Advanced Random</h3>
+        <pre><code>np.random.seed(42)              # reproducibility
+np.random.uniform(-1,1,10)      # uniform range
+np.random.normal(5, 2, 100)     # mean=5 std=2</code></pre>
+      </div>
+    </div>
+
+    <!-- LINEAR ALGEBRA -->
+    <h2 class="section-title">3. Linear Algebra</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Matrix Operations</h3>
+        <pre><code>A @ B                          # matrix mul
+np.dot(A,B)                      # dot product
+np.transpose(A)                  # transpose</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Inverses & Decomposition</h3>
+        <pre><code>np.linalg.inv(A)                # inverse
+np.linalg.pinv(A)               # pseudo-inverse
+np.linalg.det(A)                # determinant
+np.linalg.eig(A)                # eigenvalues</code></pre>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <h2 class="section-title">4. Statistical Functions</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Basics</h3>
+        <pre><code>np.mean(x)
+np.median(x)
+np.std(x)
+np.var(x)</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Aggregations</h3>
+        <pre><code>np.min(x), np.max(x)
+np.percentile(x, 90)
+x.sum(), x.prod()</code></pre>
+      </div>
+    </div>
+
+    <!-- RESHAPING -->
+    <h2 class="section-title">5. Reshaping & Dimensions</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Shape Changing</h3>
+        <pre><code>a.reshape(3,4)
+a.flatten()
+a.ravel()</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Dim Helpers</h3>
+        <pre><code>np.expand_dims(a, axis=0)
+a.squeeze()
+a.swapaxes(0,1)</code></pre>
+      </div>
+    </div>
+
+    <!-- INDEXING -->
+    <h2 class="section-title">6. Indexing & Slicing</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Basics</h3>
+        <pre><code>a[1:4]
+a[::2]
+a[-1]</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Boolean</h3>
+        <pre><code>a[a > 10]
+np.where(a > 5)
+np.where(a % 2 == 0, "even", "odd")</code></pre>
+      </div>
+    </div>
+
+    <!-- BROADCASTING -->
+    <h2 class="section-title">7. Broadcasting Rules (Advanced)</h2>
+    <div class="card">
+      <pre><code># shapes must be compatible:
+# trailing dimensions must match or be 1
+
+(3,1)  + (1,4)   → (3,4)
+(5,1,4) + (1,3,1) → (5,3,4)
+
+# ML example: normalize batch
+X_norm = (X - X.mean(0)) / X.std(0)</code></pre>
+    </div>
+
+    <!-- ML PART -->
+    <h2 class="section-title">8. NumPy for Machine Learning</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Feature Scaling</h3>
+        <pre><code>X_norm = (X - X.mean(axis=0)) / X.std(axis=0)</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Adding Bias</h3>
+        <pre><code>X_b = np.c_[np.ones((len(X),1)), X]</code></pre>
+      </div>
+
+      <div class="card">
+        <h3>Linear Regression (Normal Equation)</h3>
+        <pre><code>theta = np.linalg.pinv(X.T @ X) @ X.T @ y</code></pre>
+      </div>
+    </div>
+
+    <footer>
+      © Designed for Umer Awan — fully detailed advanced NumPy learning page.
+    </footer>
+
+  </div>
+</body>
+</html>
