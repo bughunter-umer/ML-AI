@@ -466,22 +466,7 @@ A + np.array([1,2,3])
 
 </div>
 
-<script>
-// 🔍 Search filter
-const searchBox = document.getElementById("searchBox");
-searchBox.addEventListener("keyup", () => {
-    let filter = searchBox.value.toLowerCase();
-    document.querySelectorAll('.card').forEach(card => {
-        card.style.display = card.innerText.toLowerCase().includes(filter) ? 'block' : 'none';
-    });
-});
 
-// 🌗 Dark/Light theme toggle
-const toggleBtn = document.getElementById("toggleBtn");
-toggleBtn.addEventListener("click", () => {
-    document.body.classList.toggle("light");
-});
-</script>
 
 </body>
 </html>
