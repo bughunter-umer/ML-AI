@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umer's Detailed NumPy Cheatsheet</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a;
+            color: #f1f5f9;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #1e293b;
+            padding: 20px;
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+            color: #38bdf8;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        section {
+            padding: 20px 40px;
+            border-bottom: 1px solid #334155;
+        }
+        h2 {
+            color: #facc15;
+            border-left: 5px solid #facc15;
+            padding-left: 10px;
+            margin-top: 20px;
+        }
+        h3 {
+            color: #f472b6;
+            margin-top: 15px;
+        }
+        pre {
+            background-color: #1e293b;
+            color: #22d3ee;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            color: #22d3ee;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        .tip {
+            background-color: #334155;
+            padding: 10px 15px;
+            border-left: 5px solid #f87171;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .example {
+            background-color: #0f172a;
+            padding: 10px;
+            border-left: 4px solid #4ade80;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>Umer's Detailed NumPy Cheatsheet</header>
+
+    <section>
+        <h2>1. Array Creation</h2>
+        <ul>
+            <li><b>np.array()</b>: Create a NumPy array <pre><code>a = np.array([1,2,3])  # [1 2 3]</code></pre></li>
+            <li><b>np.zeros(shape)</b>: Array filled with zeros <pre><code>np.zeros((2,3))  # [[0. 0. 0.] [0. 0. 0.]]</code></pre></li>
+            <li><b>np.ones(shape)</b>: Array filled with ones <pre><code>np.ones((2,3))  # [[1. 1. 1.] [1. 1. 1.]]</code></pre></li>
+            <li><b>np.arange(start,end,step)</b>: Sequence array <pre><code>np.arange(0,5)  # [0 1 2 3 4]</code></pre></li>
+            <li><b>np.linspace(start,end,num)</b>: Evenly spaced array <pre><code>np.linspace(0,1,5)  # [0. 0.25 0.5 0.75 1.]</code></pre></li>
+            <li><b>np.random.rand(dims)</b>: Random floats 0-1 <pre><code>np.random.rand(2,3)</code></pre></li>
+            <li><b>np.random.randn(dims)</b>: Random normal distribution <pre><code>np.random.randn(2,3)</code></pre></li>
+            <li><b>np.random.randint(low,high,size)</b>: Random integers <pre><code>np.random.randint(1,10,(2,2))</code></pre></li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>2. Array Properties</h2>
+        <ul>
+            <li><b>shape</b>: <code>a.shape</code> → dimensions tuple</li>
+            <li><b>dtype</b>: <code>a.dtype</code> → element type</li>
+            <li><b>size</b>: <code>a.size</code> → total elements</li>
+            <li><b>ndim</b>: <code>a.ndim</code> → number of dimensions</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>3. Basic Operations</h2>
+        <ul>
+            <li>Addition, multiplication, min, max, mean, std, sum</li>
+            <pre class="example"><code>a = np.array([1,2,3])
+a + 5   # [6 7 8]
+a * 2   # [2 4 6]
+np.min(a)  # 1
+np.max(a)  # 3
+a.mean()   # 2.0
+np.std(a)  # 0.816</code></pre>
+        </ul>
+    </section>
+
+    <section>
+        <h2>4. Indexing & Slicing</h2>
+        <ul>
+            <li>1D: <code>a[1]</code> → second element</li>
+            <li>Slice: <code>a[1:4]</code> → elements 1-3</li>
+            <li>2D: <code>a[1,2]</code> → row 1, col 2</li>
+            <li>Row: <code>a[1,:]</code></li>
+            <li>Column: <code>a[:,2]</code></li>
+            <li>Boolean: <code>a[a>3]</code> → select values where condition is True</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>5. Reshaping & Dimensions</h2>
+        <ul>
+            <li><b>reshape()</b>: <pre><code>a.reshape(2,3)</code></pre></li>
+            <li><b>resize()</b>: in-place reshape <pre><code>a.resize(2,3)</code></pre></li>
+            <li><b>expand_dims()</b>: add dimension <pre><code>np.expand_dims([1,2,3], axis=0)  # [[1 2 3]]</code></pre></li>
+            <li><b>squeeze()</b>: remove singleton dimensions <pre><code>np.squeeze([[[1,2,3]]])  # [1 2 3]</code></pre></li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>6. Stacking & Concatenation</h2>
+        <ul>
+            <li><b>vstack()</b>: stack vertically <pre><code>np.vstack((a,b))</code></pre></li>
+            <li><b>hstack()</b>: stack horizontally <pre><code>np.hstack((a,b))</code></pre></li>
+            <li><b>concatenate()</b>: merge arrays along axis <pre><code>np.concatenate((a,b), axis=0/1)</code></pre></li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>7. Linear Algebra</h2>
+        <ul>
+            <li>Dot Product: <code>np.dot(a,b)</code></li>
+            <li>Matrix multiplication: <code>np.matmul(a,b)</code></li>
+            <li>Inverse: <code>np.linalg.inv(a)</code></li>
+            <li>Index of largest element: <code>np.argmax(a)</code></li>
+            <li>Index of smallest element: <code>np.argmin(a)</code></li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>8. Sorting & Clipping</h2>
+        <ul>
+            <li>Sort along axis: <code>np.sort(a, axis=0/1)</code></li>
+            <li>Clip values: <code>np.clip([1,5,10],2,8)  # [2 5 8]</code></li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>9. Random & Padding</h2>
+        <ul>
+            <li>Pad array: <pre><code>np.pad([1,2,3,4], (2,1), constant_values=0)  # [0 0 1 2 3 4 0]</code></pre></li>
+            <li>Random numbers: <code>np.random.rand(), np.random.randn(), np.random.randint()</code></li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>10. Vectorization & Views</h2>
+        <ul>
+            <li>Vectorization: operate on arrays directly <pre><code>a = np.array([1,2,3]); b = a + 5  # [6 7 8]</code></pre></li>
+            <li>copy vs view: <pre><code>b = a.copy()  # independent
+c = a.view()  # changes affect original</code></pre></li>
+            <li>Slicing returns view: modifying slice affects original</li>
+        </ul>
+    </section>
+
+    <section class="tip">
+        <h3>💡 Tips for Fast Revision</h3>
+        <ul>
+            <li>axis=0 → columns, axis=1 → rows</li>
+            <li>Slicing returns view, copy() to make independent</li>
+            <li>Broadcasting requires compatible shapes</li>
+            <li>expand_dims / squeeze for ML input shapes</li>
+            <li>Vectorized operations are much faster than Python loops</li>
+        </ul>
+    </section>
+
+</body>
+</html>
